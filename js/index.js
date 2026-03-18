@@ -3,6 +3,9 @@ const tilList = document.querySelector("#til-list");
 const tilDateInput = document.querySelector("#til-date");
 const tilTitleInput = document.querySelector("#til-title");
 const tilContentInput = document.querySelector("#til-content");
+const submitButton = tilForm.querySelector('button[type="submit"]');
+
+let editingItem = null;
 
 tilForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -16,6 +19,24 @@ tilForm.addEventListener("submit", function (event) {
     return;
   }
 
+  if (editingItem) {
+    updateTilItem(editingItem, date, title, content);
+    editingItem = null;
+    submitButton.textContent = "등록";
+  } else {
+    const tilItem = createTilItem(date, title, content);
+    tilList.prepend(tilItem);
+  }
+
+  tilForm.reset();
+});
+
+tilForm.addEventListener("reset", function () {
+  editingItem = null;
+  submitButton.textContent = "등록";
+});
+
+function createTilItem(date, title, content) {
   const tilItem = document.createElement("article");
   tilItem.className = "til-item";
 
@@ -29,11 +50,46 @@ tilForm.addEventListener("submit", function (event) {
   const contentElement = document.createElement("p");
   contentElement.textContent = content;
 
-  tilItem.appendChild(timeElement);
-  tilItem.appendChild(titleElement);
-  tilItem.appendChild(contentElement);
+  const actionContainer = document.createElement("div");
+  actionContainer.className = "til-actions";
 
-  tilList.prepend(tilItem);
+  const editButton = document.createElement("button");
+  editButton.type = "button";
+  editButton.className = "edit-btn";
+  editButton.textContent = "✏️";
 
-  tilForm.reset();
-});
+  const deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.className = "delete-btn";
+  deleteButton.textContent = "🗑️";
+
+  editButton.addEventListener("click", function () {
+    tilDateInput.value = timeElement.getAttribute("datetime");
+    tilTitleInput.value = titleElement.textContent;
+    tilContentInput.value = contentElement.textContent;
+
+    editingItem = tilItem;
+    submitButton.textContent = "수정 완료";
+  });
+
+  deleteButton.addEventListener("click", function () {
+    tilItem.remove();
+  });
+
+  actionContainer.append(editButton, deleteButton);
+
+  tilItem.append(actionContainer, timeElement, titleElement, contentElement);
+
+  return tilItem;
+}
+
+function updateTilItem(tilItem, date, title, content) {
+  const timeElement = tilItem.querySelector("time");
+  const titleElement = tilItem.querySelector("h3");
+  const contentElement = tilItem.querySelector("p");
+
+  timeElement.setAttribute("datetime", date);
+  timeElement.textContent = date;
+  titleElement.textContent = title;
+  contentElement.textContent = content;
+}
