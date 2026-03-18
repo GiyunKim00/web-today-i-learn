@@ -1,12 +1,39 @@
-// TODO: TIL 폼 등록 기능을 구현하세요
-// 1. 폼 요소와 목록 요소를 querySelector로 선택합니다.
-// 2. 폼의 submit 이벤트를 감지하여 새 TIL 항목을 목록에 추가합니다.
-
 const tilForm = document.querySelector("#til-form");
 const tilList = document.querySelector("#til-list");
+const tilDateInput = document.querySelector("#til-date");
+const tilTitleInput = document.querySelector("#til-title");
+const tilContentInput = document.querySelector("#til-content");
 
 tilForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  // TODO: 입력값을 가져와서 새 TIL 항목을 만들어 목록에 추가하세요
+  const date = tilDateInput.value;
+  const title = tilTitleInput.value.trim();
+  const content = tilContentInput.value.trim();
+
+  if (!date || !title || !content) {
+    alert("날짜, 제목, 내용을 모두 입력해주세요.");
+    return;
+  }
+
+  const tilItem = document.createElement("article");
+  tilItem.className = "til-item";
+
+  const timeElement = document.createElement("time");
+  timeElement.setAttribute("datetime", date);
+  timeElement.textContent = date;
+
+  const titleElement = document.createElement("h3");
+  titleElement.textContent = title;
+
+  const contentElement = document.createElement("p");
+  contentElement.textContent = content;
+
+  tilItem.appendChild(timeElement);
+  tilItem.appendChild(titleElement);
+  tilItem.appendChild(contentElement);
+
+  tilList.prepend(tilItem);
+
+  tilForm.reset();
 });
