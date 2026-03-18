@@ -369,3 +369,15 @@ footer {
   --divider-color: #e8e8e8;
   --font-default-color: #333;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  opacity: 0.85;
+}
