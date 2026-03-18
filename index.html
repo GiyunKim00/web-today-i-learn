@@ -21,7 +21,8 @@
 <nav class="top-nav">
     <span class="nav-logo">구름LOG</span>
     <ul class="nav-links">
-        <li><a href="#about">자기소개</a></li>
+        <li><a href="#profile">자기소개</a></li>
+        <li><a href="#about">기본정보</a></li>
         <li><a href="#gallery">갤러리</a></li>
         <li><a href="#works">인생 작품</a></li>
         <li><a href="#til">TIL</a></li>
@@ -29,7 +30,7 @@
 </nav>
 
 <!-- 프로필 히어로 -->
-<section class="hero" id="about">
+<section class="hero">
     <div class="profile-card">
         <div class="profile-image">
             <img src="./images/profile.png" alt="김기윤 프로필 사진"/>
@@ -43,7 +44,7 @@
 
 <main>
     <!-- 자기소개 -->
-    <section class="content-section">
+    <section class="content-section" id = "profile">
         <h2>자기소개</h2>
         <p>
             안녕하세요. 저는 Kotlin과 Jetpack Compose를 공부하고 있는
@@ -60,9 +61,8 @@
     </section>
 
     <!-- 기본 정보 -->
-    <section class="content-section" id="info">
+    <section class="content-section" id="about">
         <h2>기본 정보</h2>
-        <!-- TODO: 자신의 기본 정보를 표(<table>)로 정리하세요 -->
         <table class="info-table">
             <tr>
                 <th>이름</th>
@@ -104,8 +104,8 @@
     <!-- 나를 울린 인생 작품 -->
     <section class="content-section" id="works">
         <h2>나를 울린 인생 작품</h2>
-        <div class="works-list">
-            <ol>
+        <ol class="works-list">
+            <li>
                 <article class="work-card">
                     <div class="work-thumbnail">
                         <img src="./images/work-1.png" alt="영화 센과 치히로의 행방불명 포스터"/>
@@ -118,8 +118,8 @@
                         </p>
                     </div>
                 </article>
-            </ol>
-            <ol>
+            </li>
+            <li>
                 <article class="work-card">
                     <div class="work-thumbnail">
                         <img src="./images/work-2.png" alt="너드커넥션"/>
@@ -135,9 +135,9 @@
                         <p>제발 한 번만 들어주세요 제발</p>
                     </div>
                 </article>
-            </ol>
+            </li>
 
-        </div>
+        </ol>
     </section>
 
     <!-- TIL (Today I Learned) -->
